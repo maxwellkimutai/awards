@@ -1,0 +1,66 @@
+{% include 'base.html'%}
+{% load bootstrap4 %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/project.css'%}">
+{% endblock %}
+{% block content %}
+    <div class="jumbotron header-jumbotron" style="background">
+        <div class="overlay">
+            <div class="row ml-5 pt-5">
+                <p>Posted on {{project.pub_date|date:"M d, Y"}} </p>
+            </div>
+            <div class="jumbotron-text">
+                <h1 class="font-weight-bold">{{project.title}}</h1>
+                <p>By {{project.profile.user}}</p>
+                <svg width="130" height="130">
+                  <circle cx="65" cy="65" r="60" fill-opacity="0" stroke="#90EE90" stroke-width="3" />
+                  <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="50px" font-family="Arial" dy=".3em">{{vote_average}}</text>
+                Sorry, your browser does not support inline SVG.
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center" style="padding-left: 120px; padding-right: 120px;">{{project.description}} <br> <a href="{{project.url}}" class="btn btn-success" style="margin-top: 30px;">View</a> <button class="btn btn-success" style="margin-top: 30px;" data-toggle="modal" data-target="#voteModal">Vote</button></p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 class="text-center">Screenshots</h6>
+                <img src="{{project.screenshot.url}}" class="screenshot" width="100%" alt="" style="padding-top: 50px;">
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="voteModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Vote</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form  action="{%url 'project' project.id %}" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+
+                {%csrf_token%}
+
+                {% bootstrap_form form%}
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-success btn-lg" value="Post">
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+        $('.header-jumbotron').css("background","url('{{ project.image.url }}') no-repeat center center")
+    </script>
+{% endblock %}

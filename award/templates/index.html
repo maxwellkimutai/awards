@@ -1,4 +1,43 @@
 {% include 'base.html' %}
 {% load bootstrap4 %}
+{% load static%}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 {% block content %}
+    <div class="jumbotron header-jumbotron">
+        <div class="overlay">
+            <div class="jumbotron-text">
+                <h1>Awwards</h1>
+                <p>Rate our projects</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row heading">
+            <div class="col-md-12">
+                <h4>Projects</h4>
+            </div>
+        </div>
+        <div class="row">
+            {% for project in projects %}
+                    <div class="col-md-4">
+                        <div class="card">
+                            <a href="{% url 'project' project.id %}"><img src="{{project.image.url}}" style="height:300px; width:100%;" alt=""></a>
+                            <div class="card-body">
+                                <h6>{{project.title}}</h6>
+                                <hr>
+                                <div class="media" style="background-color:white;">
+                                    <img src="{{project.profile.profile_photo.url}}" class="mr-3 rounded-circle" width="25px" height="25px">
+                                    <div class="media-body">
+                                        <p class="my-0"><a href="{% url 'profile' project.user.username%}">{{project.user.get_full_name}}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+
+    </div>
 {% endblock %}

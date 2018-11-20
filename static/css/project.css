@@ -1,0 +1,33 @@
+.header-jumbotron{
+    width: 100%;
+    height: 500px;
+    background-size: contain;
+    padding: 0 !important;
+    color: white;
+}
+.overlay{
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.jumbotron-text{
+    top:50%;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .jumbotron {
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+}
+.screenshot{
+    padding: 0;
+    margin: 0;
+}
+.votes{
+ margin: 50px auto;
+}
